@@ -18,3 +18,6 @@ require 'dynamic_forms/models/field_types/radio_button_select'
 require 'dynamic_forms/models/field_types/time_select'
 
 require 'dynamic_forms/models/dynamic_forms_mailer'
+
+module DynamicForms
+end
