@@ -1,7 +1,7 @@
 <h2><%= @form.name %></h2>
 
 <% if @submitted && !@form.confirmation.blank? %>
-  <%= simple_format(@form.confirmation) %>
+  <%= simple_format(@form.confirmation).html_safe %>
 <% end %>
 
 <% @form_submission.each_field do |field, value| %>

@@ -15,7 +15,7 @@ module DynamicForms
         raise unless @object.is_a?(FormSubmission)
         msg = error_messages
         @object.form.form_fields.each {|field| msg.gsub!(/#{Regexp.escape(field.name).humanize}/, "\"#{field.label}\"")}
-        msg
+        msg.html_safe
       end
     end
     
@@ -66,14 +66,13 @@ module DynamicForms
         label = @field.label
         val = @field.is_a?(::FormField::FileField) ? formatted_value : @template.send(:h, formatted_value)
         if @block
-          @template.concat(@template.capture(label, val, &@block), @block.binding)
+          @template.capture(label, val, &@block)
         else
-          <<-EOF
-            <div class="form_submission_field_display">
-              <strong class="label">#{label}:</strong>
-              <span class="response">#{val}</span>
-            </div>
-          EOF
+          html = "<div class='form_submission_field_display'>"
+          html += "<strong class='label'>#{label}:</strong>"
+          html += "<span class='response'>#{val}</span>"
+          html += "</div>"
+          html.html_safe
         end
       end
       

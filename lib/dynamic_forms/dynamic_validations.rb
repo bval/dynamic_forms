@@ -90,7 +90,7 @@ module DynamicForms
     end
     
     def is_email?
-      !(answer =~ /#{RFC822::EmailAddress}/).nil?
+      !(answer =~ /#{RFC822::DYNAMIC_FORMS_EMAIL_ADDRESS}/).nil?
     end
     
     def is_phone_number?
@@ -148,7 +148,7 @@ end
 # http://creativecommons.org/licenses/by-sa/2.5/
 # 
 module RFC822
-  EmailAddress = begin
+  DYNAMIC_FORMS_EMAIL_ADDRESS = begin
     qtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]'
     dtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]'
     atom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-' +
@@ -162,6 +162,6 @@ module RFC822
     domain = "#{sub_domain}(?:\\x2e#{sub_domain})*"
     local_part = "#{word}(?:\\x2e#{word})*"
     addr_spec = "#{local_part}\\x40#{domain}"
-    pattern = /\A#{addr_spec}\z/
+    pattern = Regexp.new '[\A#{addr_spec}\z]'
   end
 end
