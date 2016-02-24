@@ -1,16 +1,17 @@
 module DynamicForms
-  
+
   class << self
     attr_accessor :configuration
   end
-  
+
   def self.configure
     self.configuration ||= Configuration.new
+    yield(configuration)
   end
-  
+
   class Configuration
     attr_accessor :mailer_sender, :field_types, :validation_types, :valid_mime_types
-    
+
     def initialize
       @mailer_sender = 'no-reply@example.com'
       @field_types = %w{text_field text_area select check_box check_box_group file_field radio_button_select time_select date_select datetime_select}
@@ -30,5 +31,5 @@ module DynamicForms
       ]
     end
   end
-  
+
 end

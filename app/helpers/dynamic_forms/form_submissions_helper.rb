@@ -1,11 +1,11 @@
 # Helpers for displaying FormSubmission data
 module DynamicForms
   module FormSubmissionsHelper
-    
+
     def self.included(base)
       ActionView::Helpers::FormBuilder.send :include, FormBuilderMethods
     end
-    
+
     # mixes in FormBuilder#form_submission_error_messages method
     module FormBuilderMethods
       # Use instead of FormBuilder#error_messages when working with FormSubmissions,
@@ -18,36 +18,36 @@ module DynamicForms
         msg.html_safe
       end
     end
-    
+
     # Instantiates a FormSubmissionFieldDisplay object
-    # 
+    #
     # To use the default formatting markup, just pass the field name and value:
-    # 
+    #
     #   <% @form_submission.each_field do |field, value| %>
     #       <%= format_submission_field(field, value) %>
     #   <% end %>
-    # 
-    # If you want to use your own custom markup instead, pass a block with label 
+    #
+    # If you want to use your own custom markup instead, pass a block with label
     # and value block params:
-    # 
+    #
     #   <dl>
     #     <% @form_submission.each_field do |field, value| %>
     #       <% format_submission_field(field, value) do |label, val| %>
     #         <dt><%= label %></dt>
     #         <dd><%= val %></dd>
     #       <% end %>
-    #     <% end %>  
+    #     <% end %>
     #   </dl>
-    # 
+    #
     def format_submission_field(field, value, &block)
       FormSubmissionFieldDisplay.new(self, field, value, &block)
     end
-    
+
     # Helper class that formats the value of a FormSubmission's field
     class FormSubmissionFieldDisplay
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::UrlHelper
-      
+
       # Do not instantiate directly, use the #formate_submission_field method instead
       def initialize(template, field, value, &block)
         @field = field
@@ -60,7 +60,7 @@ module DynamicForms
         @true_value = I18n.t(:true_value, :scope => [:dynamic_forms, :helpers, :forms_submissions])
         @false_value = I18n.t(:false_value, :scope => [:dynamic_forms, :helpers, :forms_submissions])
       end
-      
+
       # used to output the generated markup
       def to_s
         label = @field.label
@@ -75,9 +75,9 @@ module DynamicForms
           html.html_safe
         end
       end
-      
+
       private
-      
+
       # formats value as a list, value or boolean based on the type of form field
       def formatted_value
         if @field.has_many_responses?
@@ -100,23 +100,23 @@ module DynamicForms
           value_with_blank_notice(@value)
         end
       end
-      
+
       def value_with_blank_notice(val = nil)
         val.blank? ? @no_response : val
       end
-      
+
       def value_with_download_link(val = nil)
         val.blank? ? @no_response : "#{format_filename(val)} #{link_to('Download', val, {:target => '_blank'})}"
       end
-      
+
       def value_with_localized_format(val, localized_format)
-        val.blank? ? @no_response : @template.send(:l, val, :format => localized_format)
+        val.blank? ? @no_response : (val.is_a?(String) ? val : @template.send(:l, val, :format => localized_format))
       end
-      
+
       def format_filename(filename)
         filename.split('/').last.to_s
       end
     end
-    
+
   end
 end

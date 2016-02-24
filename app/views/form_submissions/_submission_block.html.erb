@@ -5,9 +5,9 @@
   html_attrs[:multipart] = true if @form.is_multipart?
 %>
 
-<%= form_for :form_submission, @form_submission, :url => form_form_submissions_path(:form_id => @form.id), :html => html_attrs do |f| %>
+<%= form_for (@form_submission, :as => :form_submission, @form_submission, :url => form_form_submissions_path(:form_id => @form.id), :html => html_attrs) do |f| %>
   <% unless @form.instructions.blank? %>
-    <p><%= @form.instructions %></p>
+     <p><%= simple_format(@form.instructions) %></p>
   <% end %>
   <%= f.form_submission_error_messages %>
   <% @form.form_fields.each do |field| %>
