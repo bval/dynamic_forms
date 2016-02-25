@@ -41,13 +41,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    minitest (4.7.5)
-    minitest-rails (1.0.1)
-      minitest (~> 4.7)
-      minitest-test (~> 1.0)
-      railties (>= 3.0, < 4.1)
-    minitest-test (1.1.0)
-      minitest (~> 4.0)
     polyglot (0.3.5)
     power_assert (0.2.7)
     rack (1.2.8)
@@ -97,7 +90,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  minitest-rails
   rails (= 3.0.20)
   rspec-rails (~> 2.14.0)
   sqlite3
