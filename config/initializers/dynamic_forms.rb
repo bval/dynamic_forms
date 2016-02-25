@@ -1,1 +1,3 @@
-require 'dynamic_forms'
+# DynamicForms.configure do |config|
+#   config.example = "example"
+# end
