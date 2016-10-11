@@ -7,7 +7,7 @@ module DynamicForms
       responsive = extra_options.delete(:responsive)
       required = extra_options.delete(:required)
 
-      if field.system_field?
+      if field.respond_to?(:system_field?) && field.system_field?
         if field.system_check_boxes?
           out = []
           out << "</br>"
