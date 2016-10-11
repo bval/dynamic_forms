@@ -6,6 +6,26 @@ module DynamicForms
       field_name = prefix ? prefix : field.name
       responsive = extra_options.delete(:responsive)
       required = extra_options.delete(:required)
+
+      if field.system_field?
+        if field.system_check_boxes?
+          out = []
+          out << "</br>"
+          self.send(*field.system_field_options_for_select).each do |check_box|
+            checked = extra_options[:value].to_a.include?(check_box[1])
+            out <<  label_tag("custom_fields_#{field.name}_#{check_box[1]}", check_box[0] )
+            out <<  check_box_tag("lead_search[custom_fields][#{field.name}][]", check_box[1], checked , :id => "custom_fields_#{field.name}_#{check_box[1]}"  )
+            out << "</br>"
+          end
+          return out.to_s.html_safe
+        elsif field.system_select?
+          selected = extra_options[:value].present? ? extra_options[:value].to_s.to_i : nil
+          return select_tag(extra_options[:name], options_for_select(self.send(*field.system_field_options_for_select), selected), :include_blank => true)
+        elsif field.system_typeahead?
+          return render(:partial => 'system_search_fields', :locals => {:f => form_builder, :field => field, :value => extra_options[:value]})
+        end
+      end
+
       if !field.field_helper_select_options.nil?
         if field.has_html_options?
           if field.respond_to?(:field_type) && field.field_type == 'select'
