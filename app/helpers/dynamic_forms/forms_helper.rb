@@ -17,7 +17,7 @@ module DynamicForms
             out <<  check_box_tag("lead_search[custom_fields][#{field.name}][]", check_box[1], checked , :id => "custom_fields_#{field.name}_#{check_box[1]}"  )
             out << "</br>"
           end
-          return out.to_s.html_safe
+          return out.join.html_safe
         elsif field.system_select?
           selected = extra_options[:value].present? ? extra_options[:value].to_s.to_i : nil
           return select_tag(extra_options[:name], options_for_select(self.send(*field.system_field_options_for_select), selected), :include_blank => true)
