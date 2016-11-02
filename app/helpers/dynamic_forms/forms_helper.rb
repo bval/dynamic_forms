@@ -22,7 +22,7 @@ module DynamicForms
           selected = extra_options[:value].present? ? extra_options[:value].to_s.to_i : nil
           return select_tag(extra_options[:name], options_for_select(self.send(*field.system_field_options_for_select), selected), :include_blank => true)
         elsif field.system_typeahead?
-          return render(:partial => 'system_search_fields', :locals => {:f => form_builder, :field => field, :value => extra_options[:value]})
+          return render(:partial => 'forms/system_search_fields', :locals => {:f => form_builder, :field => field, :value => extra_options[:value]})
         end
       end
 
