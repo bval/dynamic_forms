@@ -8,7 +8,7 @@ module DynamicForms
       required = extra_options.delete(:required)
 
       if field.respond_to?(:system_field?) && field.system_field?
-        if field.system_checkbox?
+        if field.checkbox?
           out = []
           out << "</br>"
           self.send(*field.system_field_options_for_select).each do |check_box|
@@ -18,10 +18,10 @@ module DynamicForms
             out << "</br>"
           end
           return out.join.html_safe
-        elsif field.system_select?
+        elsif field.select?
           selected = extra_options[:value].present? ? extra_options[:value].to_s.to_i : nil
           return select_tag(extra_options[:name], options_for_select(self.send(*field.system_field_options_for_select), selected), :include_blank => true)
-        elsif field.system_typeahead?
+        elsif field.typeahead?
           return render(:partial => 'forms/system_search_fields', :locals => {:f => form_builder, :field => field, :value => extra_options[:value]})
         end
       end
