@@ -8,7 +8,7 @@ module DynamicForms
       required = extra_options.delete(:required)
 
       if field.respond_to?(:system_field?) && field.system_field?
-        if field.system_check_boxes?
+        if field.system_checkbox?
           out = []
           out << "</br>"
           self.send(*field.system_field_options_for_select).each do |check_box|
