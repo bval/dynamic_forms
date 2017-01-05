@@ -18,6 +18,7 @@ require 'dynamic_forms/models/field_types/text_field'
 require 'dynamic_forms/models/field_types/file_field'
 require 'dynamic_forms/models/field_types/radio_button_select'
 require 'dynamic_forms/models/field_types/time_select'
+require 'dynamic_forms/models/field_types/item_quantity'
 require 'dynamic_forms/models/dynamic_forms_mailer'
 
 

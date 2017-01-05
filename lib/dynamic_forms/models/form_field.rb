@@ -65,6 +65,10 @@ module DynamicForms
         end
 
         def kind
+          self.class.to_s.split("::").last.underscore.sub('item_quatity', 'text_field')
+        end
+
+        def actual_kind
           self.class.to_s.split("::").last.underscore
         end
 
