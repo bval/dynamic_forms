@@ -20,7 +20,7 @@ module DynamicForms
           end
 
           def field_helper_html_options
-            {:popup => :force}
+            {:popup => :force, :time => true}
           end
         end
 

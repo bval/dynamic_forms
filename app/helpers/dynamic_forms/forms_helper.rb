@@ -40,7 +40,7 @@ module DynamicForms
         else
           return form_builder.send(:calendar_date_select, field_name, field.field_helper_html_options.merge(extra_options))
         end
-      elsif (extra_options[:class] == 'time_select_field') || (responsive && field.type == 'FormField::TimeSelect')
+      elsif (extra_options[:class] == 'time_select_field') || (responsive && field.kind.to_s == 'time_select')
         if responsive
           return render(:partial => '/shared/calendar_select', :locals => {
                   :required => required,
