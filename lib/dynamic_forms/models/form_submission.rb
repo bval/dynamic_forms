@@ -6,6 +6,7 @@ module DynamicForms
       def self.included(model)
         model.send(:include, InstanceMethods)
         model.send(:include, Relationships)
+        model.send(:include, NamedScopes)
 
         model.class_eval do
           serialize :data, Hash
@@ -157,6 +158,14 @@ module DynamicForms
           else
             logger.debug("Missing Field is #{method_name}")
             super
+          end
+        end
+      end
+
+      module NamedScopes
+        def self.included(model)
+          model.class_eval do
+            default_scope -> { order(:created_at => :desc) }
           end
         end
       end

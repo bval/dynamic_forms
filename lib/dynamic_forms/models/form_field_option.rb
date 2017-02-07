@@ -6,6 +6,7 @@ module DynamicForms
       def self.included(model)
         model.send(:include, InstanceMethods)
         model.send(:include, Relationships)
+        model.send(:include, NamedScopes)
         
         model.class_eval do
           before_save :set_value_to_label
@@ -25,6 +26,14 @@ module DynamicForms
         # for now, option labels and values will be the same
         def set_value_to_label
           self.value = self.label
+        end
+      end
+
+      module NamedScopes
+        def self.included(model)
+          model.class_eval do
+            default_scope -> { order(:position => :asc).order(:label => :asc) }
+          end
         end
       end
       

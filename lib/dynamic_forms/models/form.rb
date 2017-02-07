@@ -44,12 +44,10 @@ module DynamicForms
             belongs_to :creator, :polymorphic => true
 
             has_many :form_fields,
-                     :order => 'position ASC',
                      :dependent => :destroy,
                      :class_name => "::FormField"
 
             has_many :form_submissions,
-                     :order => 'created_at DESC',
                      :class_name => "::FormSubmission",
                      :dependent => :destroy do
               # Takes the pain out of creating a form submission object!

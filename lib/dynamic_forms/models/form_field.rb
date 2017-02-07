@@ -12,6 +12,7 @@ module DynamicForms
         model.send(:include, Callbacks)
         model.send(:include, Validations)
         model.send(:include, DynamicForms::DynamicValidations)
+        model.send(:include, NamedScopes)
 
         model.class_eval do
           serialize :validations, Hash
@@ -31,8 +32,7 @@ module DynamicForms
                        :class_name => "::Form"
 
             has_many :form_field_options,
-                     :class_name => "::FormFieldOption",
-                     :order => 'position ASC, label ASC'
+                     :class_name => "::FormFieldOption"
           end
         end
       end
@@ -161,6 +161,14 @@ module DynamicForms
             end
 
             class_eval method_declaration
+          end
+        end
+      end
+
+      module NamedScopes
+        def self.included(model)
+          model.class_eval do
+            default_scope -> { order(:position => :asc) }
           end
         end
       end
