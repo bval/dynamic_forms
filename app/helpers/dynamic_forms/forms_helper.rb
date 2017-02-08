@@ -98,7 +98,7 @@ module DynamicForms
       fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
         render :partial => "forms/#{association.to_s.singularize}", :locals => {:f => builder}
       end
-      link_to_function(name, h("add_field(\"#{conatiner_id}\", \"#{association}\", \"#{escape_javascript(fields)}\")".html_safe), html_options)
+      link_to(name, "#", html_options.merge(:onclick => h("add_field(\"#{conatiner_id}\", \"#{association}\", \"#{escape_javascript(fields)}\")".html_safe)))
     end
 
     def link_to_add_field_option(name, f, association, html_options = {})
@@ -106,15 +106,15 @@ module DynamicForms
       fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
         render :partial => "forms/#{association.to_s.singularize}", :locals => {:f => builder}
       end
-      link_to_function(name, h("add_field_option(this, \"#{association}\", \"#{escape_javascript(fields)}\")".html_safe), html_options)
+      link_to(name, "#", html_options.merge(:onclick => h("add_field_option(this, \"#{association}\", \"#{escape_javascript(fields)}\")".html_safe)))
     end
 
     def link_to_remove_field(name, f, html_options = {})
-      f.hidden_field(:_destroy) + link_to_function(name, "remove_field(this)", html_options)
+      f.hidden_field(:_destroy) + link_to(name, "#", html_options.merge(:onclick => "remove_field(this)"))
     end
 
     def link_to_remove_field_option(name, f, html_options = {})
-      f.hidden_field(:_destroy) + link_to_function(name, "remove_field_option(this)", html_options)
+      f.hidden_field(:_destroy) + link_to(name, "#", html_options.merge(:onclick => "remove_field_option(this)"))
     end
 
   end
