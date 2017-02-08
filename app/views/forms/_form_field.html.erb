@@ -2,7 +2,7 @@
 <% options_id = f.object.new_record? ? 'field_options_new_form_fields' : "field_options_#{f.object.id}" %>
 
 <div class="field <%= field.kind %>">
-  <h4 class="drag_handle"><%= field.actual_kind.titleize %> <%= image_tag "dynamic_forms/arrow_move.png" %></h4>
+  <h4 class="drag_handle"><%= field.actual_kind.titleize %> <%= image_tag "arrow_move.png" %></h4>
   <%= f.hidden_field :sti_type %>
   <%= f.hidden_field :position, :class => 'field_position' %>
   
