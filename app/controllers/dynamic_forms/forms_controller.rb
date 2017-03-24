@@ -80,7 +80,7 @@ class DynamicForms::FormsController < ApplicationController
 
   def form_params
     #  => [:sti_type, :position, :label, :required, :min_length, :max_length, :_destroy]
-    params.require(:form).permit(:name, :instructions, :email, :form_fields_attributes, :commit)
+    params.require(:form).permit!
   end
 
 end
