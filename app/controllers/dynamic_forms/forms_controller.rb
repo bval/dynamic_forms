@@ -1,5 +1,10 @@
 class DynamicForms::FormsController < ApplicationController
-  unloadable
+  layout 'comfy/admin/cms'
+  before_filter :initialize_comfy
+
+  def initialize_comfy
+    @site = Comfy::Cms::Site.first
+  end
 
   def index
     @forms = ::Form.page(params[:page] || 1)
@@ -8,7 +13,7 @@ class DynamicForms::FormsController < ApplicationController
 
   # the Forms#show action actually renders FormSubmissions#new for displaying the form
   def show
-    @form = ::Form.find(form_params[:id])
+    @form = ::Form.find(params[:id])
     @form_submission = @form.form_submissions.build
     render :template => 'form_submissions/new'
   end
@@ -19,7 +24,7 @@ class DynamicForms::FormsController < ApplicationController
   end
 
   def edit
-    @form = ::Form.find(form_params[:id])
+    @form = ::Form.find(params[:id])
     render :template => "forms/edit"
   end
 
@@ -27,7 +32,7 @@ class DynamicForms::FormsController < ApplicationController
     # check to see if preview should be rendered rather than saving changes
     preview_new and return if params[:commit].to_s.downcase == 'preview'
 
-    @form = ::Form.new(params[:form])
+    @form = ::Form.new(form_params)
     if @form.save
       flash[:success] = translate(:form_created, :scope => [:dynamic_forms, :controllers, :forms], :name => @form.name)
       redirect_to form_path(@form)
@@ -40,9 +45,9 @@ class DynamicForms::FormsController < ApplicationController
     # check to see if preview should be rendered rather than saving changes
     preview_edit and return if form_params[:commit].to_s.downcase == 'preview'
 
-    @form = ::Form.find(form_params[:id])
+    @form = ::Form.find(params[:id])
 
-    if @form.update_attributes(form_params[:form])
+    if @form.update_attributes(form_params)
       flash[:success] = translate(:form_updated, :scope => [:dynamic_forms, :controllers, :forms], :name => @form.name)
       redirect_to form_path(@form)
     else
@@ -51,7 +56,7 @@ class DynamicForms::FormsController < ApplicationController
   end
 
   def destroy
-    form = ::Form.find(form_params[:id])
+    form = ::Form.find(params[:id])
     form.destroy
     flash[:success] = translate(:form_deleted, :scope => [:dynamic_forms, :controllers, :forms], :name => form.name)
     redirect_to forms_path
@@ -60,7 +65,7 @@ class DynamicForms::FormsController < ApplicationController
   private
 
   def preview_new
-    @form = ::Form.new(form_params[:form])
+    @form = ::Form.new(form_params)
     if @form.valid?
       @form_submission = @form.form_submissions.build
       @form_submission.form = @form # Believe it or not, this is necessary
@@ -69,7 +74,7 @@ class DynamicForms::FormsController < ApplicationController
   end
 
   def preview_edit
-    @form = ::Form.new(form_params[:form])
+    @form = ::Form.new(form_params)
     @form.id = form_params[:id]
     if @form.valid?
       @form_submission = @form.form_submissions.build

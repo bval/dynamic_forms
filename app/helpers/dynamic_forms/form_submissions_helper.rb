@@ -13,7 +13,7 @@ module DynamicForms
       # (the name is jibberish)
       def form_submission_error_messages
         raise unless @object.is_a?(FormSubmission)
-        msg = error_messages
+        msg = @object.errors.full_messages.join('\n')
         @object.form.form_fields.each {|field| msg.gsub!(/#{Regexp.escape(field.name).humanize}/, "\"#{field.label}\"")}
         msg.html_safe
       end

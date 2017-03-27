@@ -1,5 +1,4 @@
 class DynamicForms::FormSubmissionsController < ApplicationController
-  unloadable
 
   before_filter :load_form
 
