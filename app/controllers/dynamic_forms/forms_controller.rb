@@ -1,5 +1,5 @@
 class DynamicForms::FormsController < ApplicationController
-  layout 'comfy/admin/cms'
+  layout 'comfy/admin/cms', :except => [:show]
   before_filter :initialize_comfy
 
   def initialize_comfy

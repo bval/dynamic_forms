@@ -1,8 +1,8 @@
 $(document).ready(function() {
   make_form_fields_sortable();
-  $('.form_field_options').each(function(n) {
-    make_form_field_options_sortable(n.identify());
-  });
+  //$('.form_field_options').each(function(n) {
+  //  make_form_field_options_sortable(n.identify());
+  //});
 });
 
 function add_field(container_id, association, content) {
