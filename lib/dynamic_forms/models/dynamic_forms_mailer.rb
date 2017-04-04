@@ -20,7 +20,7 @@ module DynamicForms
           @sent_on      = Time.now
           @body         = {:form_submission => form_submission}
           
-          part :content_type => "text/html", :body => render_message("form_submission", :form_submission => form_submission)
+          part :content_type => "text/html", :body => render("form_submission", :form_submission => form_submission)
           
           form_submission.each_field do |field, value|
             if field.is_a?(::FormField::FileField) && !value.blank? && file = File.read(File.join(Rails.root, 'public', value))

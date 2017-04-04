@@ -56,7 +56,7 @@ module DynamicForms
               # Author:: Jacob Basham, Killswitch Collective 12-19-2008
               # ++
               def submit(attributes, throw_error = false)
-                submission = proxy_owner.form_submissions.build
+                submission = proxy_association.owner.form_submissions.build
                 attributes.each_pair do |method_name, value|
                   submission.send("#{method_name}=".to_sym, value)
                 end
