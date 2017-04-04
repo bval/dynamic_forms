@@ -1,4 +1,5 @@
-<% f ||= form %>
+<% f ||= form if defined?(form) %>
+<% f ||= object if defined?(object) %>
 
 <div>
   <%= f.label :name, "Form Name" %>
