@@ -5,7 +5,7 @@
     <% if field.is_a?(FormField::FileField) %>
       <b><%= field.label %>:</b>&nbsp;<%= value.split('/').last.to_s unless value.blank? %><br />
     <% else %>
-      <% format_submission_field(field, value) do |label, val| %>
+      <%= format_submission_field(field, value) do |label, val| %>
         <b><%= label %>:</b>&nbsp;<%= val %><br />
       <% end %>
     <% end %>
