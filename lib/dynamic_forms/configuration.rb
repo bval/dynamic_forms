@@ -10,7 +10,7 @@ module DynamicForms
   end
 
   class Configuration
-    attr_accessor :mailer_sender, :field_types, :validation_types, :valid_mime_types
+    attr_accessor :mailer_sender, :field_types, :validation_types, :valid_mime_types, :form_submission_redirect_path
 
     def initialize
       @mailer_sender = 'no-reply@example.com'
@@ -29,6 +29,7 @@ module DynamicForms
         "application/x-excel",
         "application/x-msexcel"
       ]
+      @form_submission_redirect_path = nil
     end
   end
 

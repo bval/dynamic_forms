@@ -25,7 +25,8 @@ class DynamicForms::FormSubmissionsController < ApplicationController
       if @form.email_submissions? && !@form.email.blank?
         ::DynamicFormsMailer.form_submission(@form_submission).deliver
       end
-      redirect_to form_form_submission_path(@form, @form_submission, :submitted => true)
+      redirect_path = DynamicForms.configuration.form_submission_redirect_path
+      redirect_to redirect_path ? redirect_path : form_form_submission_path(@form, @form_submission, :submitted => true)
     else
       render :action => 'new', :template => "form_submissions/new"
     end
