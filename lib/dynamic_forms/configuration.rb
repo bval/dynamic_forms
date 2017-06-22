@@ -14,7 +14,7 @@ module DynamicForms
 
     def initialize
       @mailer_sender = 'no-reply@example.com'
-      @field_types = %w{text_field text_area select check_box check_box_group file_field radio_button_select time_select date_select datetime_select item_quantity}
+      @field_types = %w{text_field text_area select check_box check_box_group file_field radio_button_select time_select date_select datetime_select item_quantity markup}
       @validation_types = %w{required? number? max_length min_length zip_code? email? phone_number? url? confirmed? mime_types time date datetime}
       @valid_mime_types = [
         "image/jpg",

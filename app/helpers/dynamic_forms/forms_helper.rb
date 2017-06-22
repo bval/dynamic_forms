@@ -51,6 +51,8 @@ module DynamicForms
         else
           return form_builder.send(:text_field, field_name, field.field_helper_html_options.merge(extra_options))
         end
+      elsif field.type == 'FormField::Markup'
+        return render(:partial => 'forms/markup', :locals => {:field => field})
       else
         if field.has_html_options?
           return form_builder.send(field.kind.to_sym, field_name, field.field_helper_options.merge(extra_options), field.field_helper_html_options)
@@ -98,7 +100,7 @@ module DynamicForms
       fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
         render :partial => "forms/#{association.to_s.singularize}", :locals => {:f => builder}
       end
-      link_to(name, "#", html_options.merge(:onclick => h("add_field(\"#{conatiner_id}\", \"#{association}\", \"#{escape_javascript(fields)}\")".html_safe)))
+      %Q{<a href="#" onclick="#{h("add_field(\"#{conatiner_id}\", \"#{association}\", \"#{escape_javascript(fields)}\")")}">#{name}</a>}.html_safe
     end
 
     def link_to_add_field_option(name, f, association, html_options = {})
