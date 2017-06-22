@@ -64,7 +64,7 @@ module DynamicForms
           # output list of checkboxes
           out = ""
           radios.each do |markup, item|
-            out += "<label for='#{radio_id_for(name, item)}'>#{markup} #{item}</label>"
+            out += "<label for='#{radio_id_for(name, item)}' class='radio-select'>#{markup} #{item}</label>"
           end
           out.html_safe
         end
