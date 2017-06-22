@@ -12,7 +12,7 @@
   <%= f.form_submission_error_messages %>
   <% @form.form_fields.each do |field| %>
     <div>
-      <%= f.label field.name, field.label %>
+      <%= f.label field.name, field.label unless field.type == 'FormField::Markup' %>
       <%= display_form_field(f, field) %>
     </div>
   <% end %>
