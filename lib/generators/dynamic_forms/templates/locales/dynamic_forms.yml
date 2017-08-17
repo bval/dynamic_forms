@@ -10,8 +10,6 @@ en:
         form_created: 'The form %{name} was successfully created.'
         form_updated: 'The form %{name} was successfully updated.'
         form_deleted: 'The form %{name} was deleted.'
-      form_submissions:
-        submission_created: "Thank you for filling out this form!"
     models:
       dynamic_forms_mailer:
         form_submission_subject: 'A new submission for form %{name} has been submitted'
