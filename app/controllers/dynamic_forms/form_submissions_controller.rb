@@ -1,5 +1,5 @@
 class DynamicForms::FormSubmissionsController < ApplicationController
-  layout 'comfy/admin/cms', :except => [:new]
+  layout 'comfy/admin/cms', :except => [:new, :show]
   before_filter :load_form
 
   def index
